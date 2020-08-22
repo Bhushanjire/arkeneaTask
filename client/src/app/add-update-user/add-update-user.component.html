@@ -1,0 +1,96 @@
+<div class="container mt-3">
+    <form [formGroup]="userForm" (ngSubmit)="addUser()" encType="multipart/form-data">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div>
+                    Profile Image
+                </div>
+                <div>
+                    <input type="file" #photo class="form-control" formControlName="photo"
+                        (change)="fileChanged($event)" accept="image/*">
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="imgURL">
+                <img [src]="imgURL" class="img-rounded photo-img" alt="Cinque Terre" >
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div>First Name</div>
+                <div>
+                    <input type="text" class="form-control" formControlName="firstName">
+                    <div *ngIf="userForm.controls['firstName']?.errors?.required && (userForm.controls['firstName'].touched || userForm.controls['firstName'].dirty)"
+                        class="alert alert-danger mt-1">
+                        First name is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div>Last Name</div>
+                <div>
+                    <input type="text" class="form-control" formControlName="lastName">
+                    <div *ngIf="userForm.controls['lastName']?.errors?.required && (userForm.controls['lastName'].touched || userForm.controls['lastName'].dirty)"
+                        class="alert alert-danger mt-1">
+                        Last name is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div>Email</div>
+                <div>
+                    <input type="text" class="form-control" formControlName="emailId" [readonly]="userId">
+                    <div *ngIf="userForm.controls['emailId']?.errors?.required && (userForm.controls['emailId'].touched || userForm.controls['emailId'].dirty)"
+                        class="alert alert-danger mt-1">
+                        Email ID is required
+                    </div>
+                    <div *ngIf="userForm.controls['emailId']?.errors?.pattern?.requiredPattern && (userForm.controls['emailId'].touched || userForm.controls['emailId'].dirty)"
+                        class="alert alert-danger mt-1">
+                        Please enter valid email ID
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div>Mobile No.</div>
+                <div><input type="text" class="form-control" formControlName="mobileNo">
+                    <div *ngIf="userForm.controls['mobileNo']?.errors?.required && (userForm.controls['mobileNo'].touched || userForm.controls['mobileNo'].dirty)"
+                        class="alert alert-danger mt-1">
+                        Mobile No. is required
+                    </div>
+
+                    <div *ngIf="userForm.controls['mobileNo']?.errors?.pattern?.requiredPattern && (userForm.controls['mobileNo'].touched || userForm.controls['mobileNo'].dirty)"
+                        class="alert alert-danger mt-1">
+                        Please enter valid mobile no.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary"> {{userId ? 'Update' : 'Add'}}</button> &nbsp;
+                <button type="button" class="btn btn-secondary" (click)="redirect()">Cancel</button>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="alert alert-success" *ngIf="successMessage">
+                    {{successMessage}}
+                </div>
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                    {{errorMessage}}
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
